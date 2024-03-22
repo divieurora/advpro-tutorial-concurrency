@@ -5,6 +5,7 @@ Reflections List:
 - [Reflection 2](#reflection-2)
 - [Reflection 3](#reflection-3)
 - [Reflection 4](#reflection-4)
+- [Reflection 5](#reflection-5)
 
 <hr>
 
@@ -87,3 +88,11 @@ How do /sleep works? Why it works like that?
 Perubahan untuk milestone ini adalah menambahkan endpoint `/sleep` yang adalah function call `std::thread::sleep(Duration::from_secs(10))`. Artinya, akan terjadi pause dalam menghandle request selama 10 detik sebelum digenerate dan responsenya dikirim kembali.
 
 Server akan menangani request berurutan (sequentially) karena program ini masih single-threaded. Jadi, selama server sedang mengurus request `/sleep`, maka server tidak bisa mengurus request lainnya secara bersamaan. Maka meskipun ketika endpoint berubah dari `/sleep` ke `/` juga akan terdelay selama 10 detik karena harus menunggu request `/sleep` selesai dijalankan.
+
+### Reflection (5)
+
+How the ThreadPool works?
+
+ThreadPool adalah sekumpulan spawned thread yang menunggu dan siap untuk menjalankan sebuah task. Ibaratnya, ThreadPool adalah kumpulan pekerja yang sudah disiapkan dan siap untuk menyelesaikan tugas. Ketika program menerima sebuah tugas baru, maka program akan menugaskan kepada pekerja untuk menjalankan tugas tersebut dan si pekerja akan memproses dan menyelesaikan tugas tersebut. Pekerja lainnya akan tetap siap menunggu dan menjalankan tugas lain yang akan diberikan sementara menunggu pekerja yang sedang menyelesaikan tugas. engan adanya ThreadPool, menyelesaikan tugas akan lebih cepat dan efisien.
+
+ThreadPool memungkinkan semua request diproses secara concurrent sehingga dapat meningkatkan throughput dari server. Dalam program ini, Threads yang terbuat tidak akan lebih dari 4 karena sudah dibuat limitnya dengan jumlah yang kecil, sehingga sistem tidak akan mengalami overloaded ketika menerima sangat banyak request. Bahkan ketika ada request `/sleep`, server akan tetap bisa menjalankan request lainnya karena ada thread lain yang dapat menjalankannya.
