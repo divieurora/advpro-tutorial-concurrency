@@ -96,3 +96,9 @@ How the ThreadPool works?
 ThreadPool adalah sekumpulan spawned thread yang menunggu dan siap untuk menjalankan sebuah task. Ibaratnya, ThreadPool adalah kumpulan pekerja yang sudah disiapkan dan siap untuk menyelesaikan tugas. Ketika program menerima sebuah tugas baru, maka program akan menugaskan kepada pekerja untuk menjalankan tugas tersebut dan si pekerja akan memproses dan menyelesaikan tugas tersebut. Pekerja lainnya akan tetap siap menunggu dan menjalankan tugas lain yang akan diberikan sementara menunggu pekerja yang sedang menyelesaikan tugas. engan adanya ThreadPool, menyelesaikan tugas akan lebih cepat dan efisien.
 
 ThreadPool memungkinkan semua request diproses secara concurrent sehingga dapat meningkatkan throughput dari server. Dalam program ini, Threads yang terbuat tidak akan lebih dari 4 karena sudah dibuat limitnya dengan jumlah yang kecil, sehingga sistem tidak akan mengalami overloaded ketika menerima sangat banyak request. Bahkan ketika ada request `/sleep`, server akan tetap bisa menjalankan request lainnya karena ada thread lain yang dapat menjalankannya.
+
+### Reflection (6)
+
+Compare function build and new
+
+Saya membuat update untuk ThreadPool dengan function build sebagai pengganti function new sebelumnya (mengikuti Rust Book Chapter 12). Perbandingan penggunaan function `build` dengan `new` ada pada error handling-nya. Function `new` yang sebelumnya digunakan memiliki ekspektasi bahwa ketika ThreadPool dibuat akan selalu berhasil, sedangkan function `build` memastikan terlebih dahulu bahwa ThreadPool berhasil dibuat dan akan memanggil `unwrap()` jika tidak berhasil. Contoh ThreadPool yang tidak berhasil adalah ketika sizenya 0 atau negatif yang berarti tidak memiliki jumlah thread yang valid, maka dengan memberikan conditional pada function `build` ketika request gagal karena size thread tidak sesuai, akan mereturn error message dan program juga tidak akan berjalan.
