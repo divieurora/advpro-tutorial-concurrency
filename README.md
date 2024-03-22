@@ -1,8 +1,10 @@
 # Advance Programming - Module 6 Reflection
 
 Reflections List:
-- [Reflection 1](#reflection-(1))
-- [Reflection 2](#reflection-(2))
+- [Reflection 1](#reflection-1)
+- [Reflection 2](#reflection-2)
+- [Reflection 3](#reflection-3)
+- [Reflection 4](#reflection-4)
 
 <hr>
 
@@ -77,3 +79,11 @@ Why the refactoring is needed?
 Karena `if` dan `else` block memiliki lebih banyak repetisi untuk bagian code lainnya selain `status_line` dan file name, maka sebaiknya dilakukan refactoring untuk mengurangi duplikasi code. 
 
 Code dapat dibuat lebih concised dengan membuat `if` dan `else` block hanya membedakan `status_line` dan file name, serta mengeluarkan variable lainnya dari conditional block.
+
+### Reflection (4)
+
+How do /sleep works? Why it works like that?
+
+Perubahan untuk milestone ini adalah menambahkan endpoint `/sleep` yang adalah function call `std::thread::sleep(Duration::from_secs(10))`. Artinya, akan terjadi pause dalam menghandle request selama 10 detik sebelum digenerate dan responsenya dikirim kembali.
+
+Server akan menangani request berurutan (sequentially) karena program ini masih single-threaded. Jadi, selama server sedang mengurus request `/sleep`, maka server tidak bisa mengurus request lainnya secara bersamaan. Maka meskipun ketika endpoint berubah dari `/sleep` ke `/` juga akan terdelay selama 10 detik karena harus menunggu request `/sleep` selesai dijalankan.
