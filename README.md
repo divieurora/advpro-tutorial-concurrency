@@ -6,6 +6,7 @@ Reflections List:
 - [Reflection 3](#reflection-3)
 - [Reflection 4](#reflection-4)
 - [Reflection 5](#reflection-5)
+- [Reflection Bonus](#reflection-bonus)
 
 <hr>
 
@@ -97,7 +98,7 @@ ThreadPool adalah sekumpulan spawned thread yang menunggu dan siap untuk menjala
 
 ThreadPool memungkinkan semua request diproses secara concurrent sehingga dapat meningkatkan throughput dari server. Dalam program ini, Threads yang terbuat tidak akan lebih dari 4 karena sudah dibuat limitnya dengan jumlah yang kecil, sehingga sistem tidak akan mengalami overloaded ketika menerima sangat banyak request. Bahkan ketika ada request `/sleep`, server akan tetap bisa menjalankan request lainnya karena ada thread lain yang dapat menjalankannya.
 
-### Reflection (6)
+### Reflection Bonus
 
 Compare function build and new
 
